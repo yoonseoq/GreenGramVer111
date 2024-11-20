@@ -4,8 +4,11 @@ import com.green.greengramver1.common.MyFileUtils;
 import com.green.greengramver1.user.model.UserInsReq;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.mindrot.jbcrypt.BCrypt;
 import org.springframework.stereotype.Service;
 import org.springframework.web.multipart.MultipartFile;
+
+import java.io.IOException;
 
 @Slf4j
 @Service
@@ -13,19 +16,36 @@ import org.springframework.web.multipart.MultipartFile;
 public class UserService {
     private final UserMapper mapper;
     private final MyFileUtils myFileUtils;
-    public int insUser(UserInsReq p) {
-        return mapper.insUser(p);
-    }
+
     public int postSignUp(MultipartFile pic, UserInsReq p){
         //프로필 이미지 파일 처리
-        String savedPicName = myFileUtils.makeRandomFileName(pic);
+        String savedPicName = pic != null ? myFileUtils.makeRandomFileName(pic) : null;
 
-        int userId = 1; // user를 insert 후에 얻을 수 있다
+        String hashedPassword = BCrypt.hashpw(p.getUpw(), BCrypt.gensalt());
+        log.info("hashedPassword: {}", hashedPassword);
+        p.setUpw(hashedPassword);
+        p.setPic(savedPicName);
+        //UserInsReq p2 = new UserInsReq(p.getUid(), hashedPassword, savedPicName, p.getNickName());
+
+        int result = mapper.insUser(p);
+
         //user/${userId}/${savedName}
+        if (pic == null){
+            return result;
+        }
 
-        String path = myFileUtils.makeFolders(String.format("user/%d", userId));
-        log.info("path: {}", path);
+        long userId = p.getUserId(); // user를 insert 후에 얻을 수 있다
+        String middlePath=String.format("user/%d", userId);
+        myFileUtils.makeFolders(middlePath);
+        log.info("middlePath: {}", middlePath);
+        String filePath = String.format("%s/%s", middlePath, savedPicName);
 
-        return 1;//mapper.insUser(p);
+        try {
+            myFileUtils.transferTo(pic, filePath);
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
+
+        return result;//mapper.insUser(p);
     }
 }

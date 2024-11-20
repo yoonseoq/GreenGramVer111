@@ -9,8 +9,12 @@ import lombok.ToString;
 
 @ToString
 @Getter
+@Setter
 @AllArgsConstructor
 public class UserInsReq {
+
+    @JsonIgnore
+    private long userId;
     @Schema(name="유저 아이디",example = "mic", requiredMode = Schema.RequiredMode.REQUIRED)
     private String uid;
     @Schema(name="유저 비번",example = "1234", requiredMode = Schema.RequiredMode.REQUIRED)

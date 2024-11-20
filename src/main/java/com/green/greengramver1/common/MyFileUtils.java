@@ -58,13 +58,13 @@ public class MyFileUtils {
         // UUID 란 랜덤하게 만든 파일에서 그 찐 파일의 확장자를 추출
     }
     public  String makeRandomFileName(MultipartFile file) {
-        return makeRandomFileName(file.getOriginalFilename());
+        return makeRandomFileName() + getExt(file.getOriginalFilename());
     }
 
     //파일을 원하는 경로에 저장
     public void transferTo(MultipartFile mf, String path) throws IOException {
         File file = new File(uploadPath, path);
-
+        //에러를 받을 누군가가 있어야함 try-catch가 있어야함
         mf.transferTo(file);
     }
 

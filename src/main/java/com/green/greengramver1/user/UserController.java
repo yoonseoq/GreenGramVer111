@@ -14,7 +14,7 @@ import java.util.List;
 @Slf4j
 @RequiredArgsConstructor
 @RestController
-@RequestMapping("user")
+@RequestMapping("api/user")
 @Tag(name = "유저", description = "회원가입, 로그인")
 public class UserController {
     private final UserService service;
@@ -25,15 +25,16 @@ public class UserController {
         RequestPart 애노테이션 사용해야함
      */
     @PostMapping("sign-up")
-    @Operation(summary = "회원 가입")
+    @Operation(summary = "회원 가입 ")
     public ResultResponse<Integer> signUp(@RequestPart UserInsReq p // 데이터 받기 위함
-                                        ,@RequestPart MultipartFile pic //파일 받기 위함
+                                        ,@RequestPart (required = false)MultipartFile pic //파일 받기 위함
                                           //List<MultipartFile> 이건 파일 여러개 받는 경우
     ){
-        log.info("UserInsReq : {} , file ; {} ",p,pic.getOriginalFilename());
+        //log.info("UserInsReq : {} , file ; {} ",p,pic != null? pic.getOriginalFilename() : null) ;
+        log.info("UserInsReq : {} , file ; {} ",p,pic != null? pic.getOriginalFilename() : null) ;
         int result = service.postSignUp(pic,p);
         return ResultResponse.<Integer>builder()
-                .resultMassage("회원가입완")
+                .resultMessage("회원가입 완")
                 .resultData(result)
                 .build();
     }
