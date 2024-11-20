@@ -1,3 +1,7 @@
+# custom property (절대경로 Absolute Path)
+file:
+  directory: D:/download/greengram_ver1 #이거를 업로드에 저장하고싶
+
 # mybatis setting
 mybatis:
   mapper-locations: xml/**/*.xml
@@ -7,14 +11,19 @@ spring:
     name: GreenGramVar1
   # DB setting
   datasource:
-    url: jdbc:mariadb://localhost/greengram_ver1
+    url: jdbc:mariadb://localhost:3306/greengram_ver1
     username: root
     password: green502
 
-springdoc:
+  servlet:
+    multipart:
+      max-file-size: 10MB #사이즈 조정
 
+springdoc:
   swagger-ui:
     default-model-expand-depth: 10
     display-request-duration: true
     operations-sorter: method
     path: /swagger
+  cache:
+    disabled: true
