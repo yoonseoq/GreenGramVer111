@@ -40,8 +40,8 @@ public class MyFileUtils {
 
     //파일명에서 확장자 추출
     public String getExt(String fileName) {
-        int lastIdx = fileName.lastIndexOf(".");
-        return fileName.substring(lastIdx);
+        int lastIdx = fileName.lastIndexOf(".");//마지막.의 정수값을 보낸다
+        return fileName.substring(lastIdx);//특정정수값부터 끝까지 리턴
     }
 
     //랜덤파일명 생성
@@ -52,13 +52,13 @@ public class MyFileUtils {
     //랜덤파일명 + 확장자 생성
     public String makeRandomFileName(String originalFileName) {
 
-        return makeRandomFileName() ;//+ getExt(originalFileName);
+        return makeRandomFileName() + getExt(originalFileName); // 오리지날 파일네임을 보내줌
 
         // 오버로딩 되어있어서 별개의 메소드이다
         // UUID 란 랜덤하게 만든 파일에서 그 찐 파일의 확장자를 추출
     }
     public  String makeRandomFileName(MultipartFile file) {
-        return makeRandomFileName() + getExt(file.getOriginalFilename());
+        return makeRandomFileName(file.getOriginalFilename());//홧장자를 알고싶어서
     }
 
     //파일을 원하는 경로에 저장
@@ -82,3 +82,6 @@ public class MyFileUtils {
 
     }
 }
+//192.168.0.101
+//192.168.0.111
+//192.168.0.121

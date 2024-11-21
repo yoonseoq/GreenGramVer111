@@ -21,7 +21,7 @@ spring:
 
   servlet:
     multipart:
-      max-file-size: 10MB #사이즈 조정
+      max-file-size: 10MB #사이즈 조정 파일 하나당 max 값
 
 springdoc:
   swagger-ui:

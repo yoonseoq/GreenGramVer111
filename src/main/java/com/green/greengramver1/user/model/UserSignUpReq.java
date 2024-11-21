@@ -11,7 +11,7 @@ import lombok.ToString;
 @Getter
 @Setter
 @AllArgsConstructor
-public class UserInsReq {
+public class UserSignUpReq {
 
     @JsonIgnore
     private long userId;
