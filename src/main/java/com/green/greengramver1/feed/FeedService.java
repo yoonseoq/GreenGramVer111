@@ -43,8 +43,9 @@ public class FeedService {
 
         FeedPostRes res = new FeedPostRes(); // 일단 보내줄 가뵤(피드에 올릴 값들)
         res.setFeedId(p.getFeedId()); // 아이디 세팅
-        res.setPics(new ArrayList<>()); //사진배열 정의
-       // ArrayList<String> list = new ArrayList<>();//수영
+        res.setPics(new ArrayList<>()); //사진배열 초기화시킴 준영
+        //리스트는 인
+       // List<String> list = new ArrayList<>();//수영 arrayList를 할 필요가 없는게 사진으,ㄴ 그냥 리스트가 아니라 걍 스트링이기 때문이다
         FeedPicDto feedPicDto = new FeedPicDto();
         feedPicDto.setFeedId(feedId);
         res.setFeedId(feedId);
