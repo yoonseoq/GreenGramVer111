@@ -1,7 +1,6 @@
 package com.green.greengramver1.feed.model;
 
 import com.green.greengramver1.common.model.Paging;
-import lombok.Getter;
 import lombok.extern.slf4j.Slf4j;
 
 @Slf4j

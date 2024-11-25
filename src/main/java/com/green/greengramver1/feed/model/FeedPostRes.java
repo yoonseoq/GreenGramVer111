@@ -3,7 +3,6 @@ package com.green.greengramver1.feed.model;
 import lombok.Getter;
 import lombok.Setter;
 
-import java.math.BigInteger;
 import java.util.List;
 
 @Getter
