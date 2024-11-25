@@ -22,12 +22,12 @@ public class Paging {
         if (size == null || size <= 0) {
             size = 20;
         }
-        }// 점검하는 부분이여서 if 문이 젤 위에 있어야함
-        this.page = page;
-        이 방법도 있어요
         if (page == null || page <= 0) {
             page = 1;
         }
+        }// 점검하는 부분이여서 if 문이 젤 위에 있어야함
+        this.page = page;
+        이 방법도 있어요
 
          */
             this.page = (page == null || page <= 0)? 1 : page;
