@@ -14,4 +14,21 @@
         set feed_id = #{feedId}
         , pic = #{pic}
     </insert>
+    <select id="selFeedList">
+        SELECT feed_id as feedId,contents,location,feed.created_at as createdAt
+        ,if(user.nick_name IS NULL , uid,nick_name) AS writerName
+        ,user.pic AS writerPic
+        FROM feed
+        INNER JOIN user
+        ON feed.writer_user_id=user.user_id
+        Order by feed_id desc
+
+        LIMIT #{sIdx},#{size};
+
+    </select>
+    <select id="selFeedPics">
+        SELECT pic
+        FROM feed_pics
+        WHERE feed_id = #{feedId};
+    </select>
 </mapper>

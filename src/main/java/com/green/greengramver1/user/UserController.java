@@ -37,8 +37,9 @@ public class UserController {
         에러 안나게 하려고
 
          */
-        log.info("UserInsReq : {} , file ; {} ", p, pic != null ? pic.getOriginalFilename() : null);
         int result = service.postSignUp(pic, p); //메시지 전달 및 교환
+        log.info("UserInsReq : {} , file ; {} ", p, pic != null ? pic.getName() : null);
+
         return ResultResponse.<Integer>builder()
                 .resultMessage("회원가입 완")
                 .resultData(result)

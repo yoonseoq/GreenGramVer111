@@ -22,6 +22,7 @@ public class UserService {
     public int postSignUp(MultipartFile pic, UserSignUpReq p){
         //프로필 이미지 파일 처리
         String savedPicName = (pic != null ? myFileUtils.makeRandomFileName(pic) : null);
+        //랜덤한 파일명에다가 확장자 붙여주는 메소드가 이거에요
         //이 메소드에서 필요한것은 확장자
         // 사진이 null이 아닐 경우에만 들어가게
         // 확장자란 .png .jpg 등등 앞으로 데이터베이스에 저장할 파일명
@@ -42,19 +43,22 @@ public class UserService {
         if (pic == null){
             return result;
         }
+        // 여기 지나친 순간부터 pic 은 null 이 아님
         // 저장위치 만든다 user/${userId}/${savedPicName}
         // middlePath =user/${userid}
         long userId = p.getUserId(); //호출 후 pk가져옴 user를 insert 후에 얻을 수 있다
         String middlePath=String.format("user/%d", userId);
+                              //유저폴더아래에 n 번 폴더 만듦
         myFileUtils.makeFolders(middlePath);
         log.info("middlePath: {}", middlePath);
         String filePath = String.format("%s/%s", middlePath, savedPicName);
+        // 미들패스 + 저장할때 쓴 파일명
         try {
-            myFileUtils.transferTo(pic, filePath);
+            myFileUtils.transferTo(pic, filePath); // 실제호 파일을 전달시킴
         } catch (IOException e) {
             e.printStackTrace();
         }
-        return result;//mapper.insUser(p);
+        return result;//mapper.insUser(p); 성공시 1을 리턴
     }
 
     public UserSignInRes postSignIn(UserSignInReq p){

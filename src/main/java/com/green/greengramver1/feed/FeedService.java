@@ -1,12 +1,11 @@
 package com.green.greengramver1.feed;
 
 import com.green.greengramver1.common.MyFileUtils;
-import com.green.greengramver1.feed.model.FeedPicDto;
-import com.green.greengramver1.feed.model.FeedPostReq;
-import com.green.greengramver1.feed.model.FeedPostRes;
+import com.green.greengramver1.feed.model.*;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.IOException;
@@ -21,7 +20,7 @@ public class FeedService {
     private final MyFileUtils myFileUtils;
 
     public FeedPostRes postFeed(List<MultipartFile> pics, FeedPostReq p) {
-        // int result = mapper.insFeed(p);
+         int result = mapper.insFeed(p);
 
 
         //파일저장
@@ -75,4 +74,22 @@ public class FeedService {
 
         return res;
     }
+
+
+    public List<FeedGetRes> getFeedList(FeedGetReq p){
+       List<FeedGetRes> list= mapper.selFeedList(p);
+       // 피드 하나당 사진 여러개 들어가야함 리스트
+       //사진
+        for(FeedGetRes res:list){
+            //db에서 각 피드에 맞는 사진정보를 가져온다.
+            List<String> picList = mapper.selFeedPics(res.getFeedId());
+            //피드 아이디 하나당 사진 여러장 가져오는 쿼리문 소환
+            res.setPics(picList);
+        }
+        return list;
+    }
+
+
+
+
 }
