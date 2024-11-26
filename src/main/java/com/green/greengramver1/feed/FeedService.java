@@ -32,7 +32,7 @@ public class FeedService {
         myFileUtils.makeFolders(middlePath); // 폴더만들기
        /*
         while (!pics.isEmpty()) {
-           //비지 않았다는 가정하에
+           //비지 않았다는 가정하에ㅇ
             pics.remove(0);
             // 가장 처음 인덱스 번호부터 지워버리면 그 다음 인덱스 번호가 당겨짐. 그럼 그것도 0이기 때문 다 없어질때까지 만복
 

@@ -22,7 +22,7 @@ import java.util.List;
 public class FeedController {
     private final FeedService service;
 
-
+//1126리뷰
     @PostMapping
     //ResultResponse<FeedPostRes>는 젤 마지막에만 사용
     public ResultResponse<FeedPostRes> postFeed(@RequestPart List<MultipartFile> pics
